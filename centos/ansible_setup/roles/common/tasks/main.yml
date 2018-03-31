@@ -1,0 +1,4 @@
+# main.yml
+---
+
+- include: common.yml

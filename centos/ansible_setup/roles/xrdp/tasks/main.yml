@@ -1,0 +1,39 @@
+---
+- name: Install epel repository
+  become: yes
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install XRDP
+  become: yes
+  yum:
+    name: xrdp
+    state: latest
+
+- name: Install TigerVNC Server
+  become: yes
+  yum:
+    name: tigervnc-server
+    state: latest
+
+- name: Start XRDP
+  become: yes
+  service:
+    name: xrdp
+    state: started
+    enabled: yes
+
+- name: Allow XRDP Inbound
+  become: yes
+  firewalld:
+    zone: public
+    port: 3389/tcp
+    state: enabled
+    permanent: true
+
+- name: Restart firewalld
+  become: yes
+  service:
+    name: firewalld
+    state: reloaded

@@ -1,0 +1,19 @@
+# Ansible Playbook to install standard Developer tools
+# onto a CentOS 7 workstation.
+#
+# Author: Hank Preston "hank.preston@gmail.com"
+---
+- name: Setup localhost as DevBox
+  hosts: localhost
+
+  roles:
+    - common
+    - xrdp
+    - python
+    - users
+    - docker
+    - node
+    # - pycharm
+    # - vagrant
+    - openconnect
+    - atom

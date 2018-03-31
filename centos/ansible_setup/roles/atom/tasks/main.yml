@@ -1,0 +1,21 @@
+---
+- name: Download Atom
+  become: yes
+  get_url:
+    url: https://github.com/atom/atom/releases/download/{{ atom.version }}/atom.x86_64.rpm
+    dest: /usr/src/
+
+- name: Install Atom
+  become: yes
+  yum:
+    name: /usr/src/atom.x86_64.rpm
+    state: present
+
+- name: Install Atom Shortcut
+  become: yes
+  become_user: "{{ general.user }}"
+  template:
+    src: "templates/atom.desktop.j2"
+    dest: "{{ general.home_dir }}/Desktop/atom.desktop"
+    owner: "{{ general.user }}"
+    mode: 0755

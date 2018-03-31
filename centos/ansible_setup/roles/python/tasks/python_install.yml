@@ -1,0 +1,17 @@
+---
+- name: Install Python 3.6.5
+  become: yes
+  script: files/python3_6_5_install.sh
+
+- name: Install Python 2.7.14
+  become: yes
+  script: files/python2_7_14_install.sh
+
+- name: Install pip for Python
+  become: yes
+  script: files/pip_install.sh
+
+- name: Install virtualenv
+  become: yes
+  pip:
+    name: virtualenv
