@@ -36,4 +36,4 @@
   become: yes
   service:
     name: firewalld
-    state: reloaded
+    state: restart
