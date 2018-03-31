@@ -3,6 +3,7 @@
 
 - name: Set timezone to {{ general.timezone }}
   become: yes
+  ignore_errors: yes
   command: "timedatectl set-timezone {{ general.timezone }}"
   tags:
     - timezone
