@@ -33,7 +33,7 @@ echo ""
 
 # Run Playbook
 echo "Running DevBox Setup Playbook"
-cd ~/code/devbox_setup/centos
+cd ~/code/devbox_setup/centos/ansible_setup
 ansible-playbook devbox.yml
 echo ""
 
