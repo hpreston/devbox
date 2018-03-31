@@ -1,0 +1,21 @@
+# docker.yml
+---
+
+- name: add docker repo
+  become: yes
+  template: src=docker.repo.j2 dest=/etc/yum.repos.d/docker.repo
+
+- name: install packages
+  become: yes
+  yum: name={{ item }} state=latest
+  with_items:
+    - docker-engine
+  ignore_errors: yes
+
+- name: start docker
+  become: yes
+  service: name=docker state=running enabled=yes
+
+- name: enable docker to start automatically
+  become: yes
+  shell: chkconfig docker on

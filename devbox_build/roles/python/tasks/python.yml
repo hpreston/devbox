@@ -1,0 +1,100 @@
+# python.yml
+---
+
+# From: https://github.com/MrPrimate/ansible-centos6-python2-7/blob/master/tasks/main.yml
+
+# This role conains tasks to deploy python 2.7 on centos
+# taken from http://supportex.net/blog/2014/10/ansible-installing-pyenv-centos/
+
+
+
+- name: pyenv | check pyenv installed
+  become: yes
+  become_user: "{{ general.user }}"
+  command: test -x {{ HOME }}/.pyenv/bin/pyenv
+  register: pyenv_present
+  ignore_errors: yes
+
+- name: pyenv | install devel packages
+  become: yes
+  yum:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - gcc
+    - patch
+    - sqlite-devel
+    - readline-devel
+    - openssl-devel
+
+# http://hakunin.com/six-ansible-practices
+- name: ensure github.com is a known host
+  become: yes
+  become_user: "{{ general.user }}"
+  lineinfile:
+    dest: "{{ HOME }}/.ssh/known_hosts"
+    create: yes
+    state: present
+    line: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+    regexp: "^github\\.com"
+
+- name: pyenv | update pyenv repo
+  git:  repo=git://github.com/yyuu/pyenv.git dest="{{ HOME }}/.pyenv/"
+  become: yes
+  become_user: "{{ general.user }}"
+  when: pyenv_present|failed
+  ignore_errors: yes
+
+- name: add environment variables and pyinit to .bash_profile
+  become: yes
+  become_user: "{{ general.user }}"
+  lineinfile: >
+    dest={{ HOME }}/.bash_profile
+    state=present
+    line='{{ item }}'
+  with_items:
+    - "export PYENV_ROOT=\"$HOME/.pyenv\""
+    - "export PATH=\"$PYENV_ROOT/bin:$PATH\""
+    - "eval \"$(pyenv init -)\""
+
+- name: is python version {{ PY_VERSION }} installed?
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile &&  pyenv global"
+  register: installed_py_version
+
+- name: what version installed?
+  debug: msg="version:{{installed_py_version.stdout_lines}}"
+
+- name: install python versions into $PYENV_ROOT/versions
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile &&  pyenv install {{ PY_VERSION }}"
+  when: installed_py_version.stdout.find('{{ PY_VERSION }}') == -1
+
+- name: rebuild the shim binaries
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv rehash"
+  when: installed_py_version.stdout.find('{{ PY_VERSION }}') == -1
+
+- name: list installed python version
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv versions  "
+  register: py_versions
+
+- debug: var=py_versions
+
+- name: set global python version for user
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv global {{ PY_VERSION }}  "
+  when: installed_py_version.stdout.find('{{ PY_VERSION }}') == -1
+
+- name: virtualenv install
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: ". {{ HOME }}/.bash_profile && pip install virtualenv"
+
+- include: python3.yml

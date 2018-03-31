@@ -1,0 +1,30 @@
+
+---
+
+general:
+  user: root
+  timezone: America/Los_Angeles
+  home_dir: /root
+
+nvm:
+  user: "{{ general.user }}"
+  version: v0.32.1
+  node_version: '6.9.2'
+
+HOME: /home/{{ general.user }}
+PY_VERSION: 2.7.6
+PY3_VERSION: 3.5.2
+
+pycharm_downloads_path: "{{ general.home_dir }}/pycharm/downloads"
+pycharm_major_release: 2017.2
+# pycharm_version: 2016.3.1
+pycharm_version: "{{ pycharm_major_release }}.3"
+pycharm_edition: community
+pycharm_install_prefix: "{{ general.home_dir }}/applications"
+
+vagrant_downloads_path: "{{ general.home_dir }}/vagrant/downloads"
+vagrant_release: 1.9.8
+vagrant_download_url: "https://releases.hashicorp.com/vagrant/{{ vagrant_release }}/vagrant_{{ vagrant_release }}_x86_64.rpm"
+vagrant_install_prefix: "{{ general.home_dir }}/applications"
+
+virtualbox_version: 5.1

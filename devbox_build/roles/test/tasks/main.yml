@@ -1,0 +1,3 @@
+# main.yml
+---
+- include: test.yml

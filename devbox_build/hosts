@@ -1,0 +1,6 @@
+[devbox]
+10.10.20.20 ansible_user=root ansible_password=cisco123 ansible_host=10.10.20.20 ansible_python_interpreter="/usr/bin/env python"
+
+[dnav3]
+centos ansible_host=198.18.134.48 ansible_user=root ansible_password=C1sco12345 ansible_python_interpreter="/usr/bin/env python"
+

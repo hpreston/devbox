@@ -1,0 +1,43 @@
+# python.yml
+---
+
+# From: https://github.com/MrPrimate/ansible-centos6-python2-7/blob/master/tasks/main.yml
+
+# This role conains tasks to deploy python 2.7 on centos
+# taken from http://supportex.net/blog/2014/10/ansible-installing-pyenv-centos/
+
+
+- name: is python version {{ PY3_VERSION }} installed?
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile &&  pyenv global"
+  register: installed_py_version
+
+- name: what version installed?
+  debug: msg="version:{{installed_py_version.stdout_lines}}"
+
+- name: install python versions into $PYENV_ROOT/versions
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile &&  pyenv install {{ PY3_VERSION }}"
+  when: installed_py_version.stdout.find('{{ PY3_VERSION }}') == -1
+
+- name: rebuild the shim binaries
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv rehash"
+  when: installed_py_version.stdout.find('{{ PY3_VERSION }}') == -1
+
+- name: list installed python version
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv versions  "
+  register: py_versions
+
+- debug: var=py_versions
+
+- name: set global python versions for user
+  become: yes
+  become_user: "{{ general.user }}"
+  shell: " . {{ HOME }}/.bash_profile && pyenv global system {{ PY3_VERSION }} {{ PY_VERSION }} "
+  when: installed_py_version.stdout.find('{{ PY3_VERSION }}') == -1
