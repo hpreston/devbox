@@ -1,4 +1,0 @@
-# test.yml
----
-- name: Test Ansible Connection
-  debug: msg="Ansible kicking off!!"
