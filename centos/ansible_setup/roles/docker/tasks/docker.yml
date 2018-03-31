@@ -44,3 +44,4 @@
 
 - name: Test docker-compose version
   shell: docker-compose --version
+  ignore_errors: true

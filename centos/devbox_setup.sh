@@ -20,7 +20,7 @@ echo ""
 
 # Create base directories
 echo "Creating base directories for projects."
-mkdir -P ~/code
+mkdir -p ~/code
 echo
 
 # Clone Sandbox Repo
