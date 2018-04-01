@@ -39,6 +39,18 @@
   tags:
     - gnome
 
+- name: Configure gedit settings
+  become: yes
+  with_items:
+    - tabs-size 4
+    - insert-spaces true
+    - display-line-numbers true
+    - bracket-matching true
+  command: "gsettings set org.gnome.gedit.preferences.editor {{ item }}"
+  tags:
+    - gnome
+
+
 - name: set GUI to launch on startup
   become: yes
   command: "systemctl set-default graphical.target"
@@ -87,6 +99,18 @@
     mode: 0755
   tags:
     - configuration
+
+- name: install gedit shortcuts
+  become: yes
+  become_user: "{{ general.user }}"
+  template:
+    src: "roles/common/templates/gedit.desktop.j2"
+    dest: "{{ general.home_dir }}/Desktop/gedit.desktop"
+    owner: "{{ general.user }}"
+    mode: 0755
+  tags:
+    - configuration
+
 
 # - name: remove vagrant from login screen
 #   become: yes
