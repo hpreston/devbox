@@ -1,0 +1,24 @@
+---
+- name: Download Postman
+  become: yes
+  get_url:
+    url: https://dl.pstmn.io/download/latest/linux64
+    dest: /opt/postman.tar.gz
+
+- name: Install Postman
+  become: yes
+  shell: |
+    tar -xzf postman.tar.gz -C /opt
+    rm postman.tar.gz
+    ln -s /opt/Postman/Postman /usr/bin/postman
+  args:
+    chdir: /opt
+
+- name: Install Postman Shortcut
+  become: yes
+  become_user: "{{ general.user }}"
+  template:
+    src: "templates/postman.desktop.j2"
+    dest: "{{ general.home_dir }}/Desktop/postman.desktop"
+    owner: "{{ general.user }}"
+    mode: 0755
