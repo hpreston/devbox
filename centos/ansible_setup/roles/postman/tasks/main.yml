@@ -10,6 +10,13 @@
   shell: |
     tar -xzf postman.tar.gz -C /opt
     rm postman.tar.gz
+  args:
+    chdir: /opt
+
+- name: Setup Symbolic Link Postman
+  become: yes
+  ignore_errors: yes
+  shell: |
     ln -s /opt/Postman/Postman /usr/bin/postman
   args:
     chdir: /opt
