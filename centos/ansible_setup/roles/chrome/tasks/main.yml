@@ -1,0 +1,26 @@
+---
+- name: Add repository
+  yum_repository:
+    name: google-chrome
+    description: Google Chrome Repo
+    baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+
+- name: Add Google Public Key
+  rpm_key:
+    state: present
+    key: https://dl.google.com/linux/linux_signing_key.pub
+
+- name: Install Google Chrome
+  yum:
+    name: "google-chrome-stable"
+    state: latest
+  become: yes
+
+- name: Install Chrome Shortcut
+  become: yes
+  become_user: "{{ general.user }}"
+  template:
+    src: "templates/chrome.desktop.j2"
+    dest: "{{ general.home_dir }}/Desktop/chrome.desktop"
+    owner: "{{ general.user }}"
+    mode: 0755
