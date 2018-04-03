@@ -1,3 +1,3 @@
 # Maintain Unix Line endings on files even on Windows
 # Needed for Windows users leveraging Vagrant for CentOS VM
-centos/ansible_setup/roles/python/files/*.sh
+centos/ansible_setup/roles/python/files/*.sh text eol=lf
