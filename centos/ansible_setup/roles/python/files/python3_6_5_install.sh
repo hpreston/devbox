@@ -15,5 +15,6 @@ else
   make altinstall
 
   # Create link for python3.6.5
+  rm -f /usr/local/bin/python3.6.5
   ln -s /usr/local/bin/python3.6 /usr/local/bin/python3.6.5
 fi

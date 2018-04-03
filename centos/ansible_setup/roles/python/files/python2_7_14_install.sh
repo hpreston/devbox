@@ -15,5 +15,6 @@ else
   make altinstall
 
   # Create link for python2.7.14
+  rm -f /usr/local/bin/python2.7.14
   ln -s /usr/local/bin/python2.7 /usr/local/bin/python2.7.14
 fi
