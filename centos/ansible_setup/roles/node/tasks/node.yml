@@ -17,9 +17,11 @@
 - name: source nvm in ~/.bashrc
   become: yes
   become_user: "{{nvm.user}}"
-  lineinfile: >
-    dest=~/.bashrc
-    line="source ~/.nvm/nvm.sh"
+  lineinfile:
+    path: ~/.bashrc
+    line: "source ~/.nvm/nvm.sh"
+    owner: " {{ nvm.user }}"
+    group: " {{ nvm.user }}"
   tags: nvm
 
 - name: check installed node version
