@@ -7,10 +7,10 @@
   hosts: localhost
 
   roles:
+    - users
     - common
     - xrdp
     - python
-    - users
     - docker
     - node
     # - pycharm
