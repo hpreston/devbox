@@ -19,6 +19,7 @@
   become_user: "{{nvm.user}}"
   lineinfile:
     path: ~/.bashrc
+    create: yes
     line: "source ~/.nvm/nvm.sh"
     owner: " {{ nvm.user }}"
     group: " {{ nvm.user }}"
