@@ -71,7 +71,6 @@
 
 - name: create (shortcut) directory
   become: yes
-  become_user: "{{ general.user }}"
   file:
     path: "{{ general.home_dir }}/Desktop"
     state: directory
