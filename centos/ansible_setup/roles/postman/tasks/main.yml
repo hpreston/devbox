@@ -21,11 +21,20 @@
   args:
     chdir: /opt
 
-- name: Install Postman Shortcut
+- name: Install Postman Shortcut on Desktop
   become: yes
   become_user: "{{ general.user }}"
   template:
     src: "templates/postman.desktop.j2"
     dest: "{{ general.home_dir }}/Desktop/postman.desktop"
     owner: "{{ general.user }}"
+    mode: 0755
+
+- name: Install Postman Shortcut in Menu
+  become: yes
+  template:
+    src: "templates/postman.desktop.j2"
+    dest: "/usr/share/applications/postman.desktop"
+    owner: root
+    group: root
     mode: 0755

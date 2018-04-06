@@ -1,8 +1,9 @@
 ---
 general:
-  user: root
+  user: developer
+  password: $6$LTWcgHZ2KZ4BgKpz$ch/rsft.trtddwuCCqRVxBMvRMDeGM7bdNa6xDAVFFYacg6Mxntbq7Re.PeswkWopblEjPYTMIGTn5efxEoWx.
   timezone: America/Los_Angeles
-  home_dir: /root
+  home_dir: /home/developer
 
 nvm:
   user: "{{ general.user }}"

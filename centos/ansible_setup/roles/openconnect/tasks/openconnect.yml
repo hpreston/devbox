@@ -2,7 +2,6 @@
 ---
 - name: add epel repo
   become: yes
-  become_user: "{{ general.user }}"
   yum:
     name: epel-release
     state: present
@@ -12,9 +11,8 @@
 
 - name: install
   become: yes
-  become_user: "{{ general.user }}"
   yum:
-    name: "openconnect"
+    name: "NetworkManager-openconnect"
     state: latest
   tags:
     - configuration
