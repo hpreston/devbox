@@ -75,6 +75,7 @@
   file:
     path: "{{ general.home_dir }}/Desktop"
     state: directory
+    owner: "{{ general.user }}"
   tags:
     - configuration
 
