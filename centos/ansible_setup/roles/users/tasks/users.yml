@@ -45,7 +45,7 @@
   become: yes
   template:
     src: "templates/.bash_profile.j2"
-    dest: "~/.bash_profile"
+    dest: "{{ general.home_dir }}/.bash_profile"
     owner: "{{ general.user }}"
     group: "{{ general.user }}"
     mode: 0744
