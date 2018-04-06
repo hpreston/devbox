@@ -12,7 +12,7 @@
     - xrdp
     - python
     - docker
-    - node
+    # - node
     # - pycharm
     # - vagrant
     - openconnect
