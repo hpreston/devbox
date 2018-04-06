@@ -107,6 +107,7 @@
     src: "roles/common/templates/gedit.desktop.j2"
     dest: "{{ general.home_dir }}/Desktop/gedit.desktop"
     owner: "{{ general.user }}"
+    group: "{{ general.user }}"
     mode: 0755
   tags:
     - configuration
