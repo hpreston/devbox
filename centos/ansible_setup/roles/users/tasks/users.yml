@@ -40,3 +40,13 @@
     line: '%wheel ALL=(ALL) NOPASSWD: ALL'
   tags:
     - user
+
+- name: Create default .bash_profile
+  become: yes
+  become_user: "{{ general.user }}"
+  template:
+    src: "templates/.bash_profile.j2"
+    dest: "~/.bash_profile"
+    owner: "{{ general.user }}"
+    group: "{{ general.user }}"
+    mode: 0744
