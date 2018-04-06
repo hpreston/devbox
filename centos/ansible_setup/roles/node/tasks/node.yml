@@ -12,7 +12,6 @@
 - name: Install nvm
   git: repo=https://github.com/creationix/nvm.git dest=~/.nvm version={{ nvm.version }}
   become: yes
-  become_user: "{{ nvm.user }}"
   tags: nvm
 
 - name: source nvm in ~/.bashrc
