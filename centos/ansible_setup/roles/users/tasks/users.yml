@@ -43,7 +43,6 @@
 
 - name: Create default .bash_profile
   become: yes
-  become_user: "{{ general.user }}"
   template:
     src: "templates/.bash_profile.j2"
     dest: "~/.bash_profile"
