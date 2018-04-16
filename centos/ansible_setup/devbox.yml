@@ -12,9 +12,7 @@
     - xrdp
     - python
     - docker
-    # - node
-    # - pycharm
-    # - vagrant
+    # - node  # ToDo - Currently getting error
     - openconnect
     - atom
     - postman

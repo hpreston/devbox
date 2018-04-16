@@ -41,6 +41,7 @@
 
 - name: Configure gedit settings
   become: yes
+  become_user: "{{ general.user }}"
   with_items:
     - tabs-size 4
     - insert-spaces true
@@ -107,7 +108,6 @@
     src: "roles/common/templates/gedit.desktop.j2"
     dest: "{{ general.home_dir }}/Desktop/gedit.desktop"
     owner: "{{ general.user }}"
-    group: "{{ general.user }}"
     mode: 0755
   tags:
     - configuration
