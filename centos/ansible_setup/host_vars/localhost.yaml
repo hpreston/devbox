@@ -19,7 +19,7 @@ python3:
   version: "3.6.5"
 
 atom:
-  version: "v1.25.0"
+  version: "v1.26.0"
 
 # PY_VERSION: 2.7.6
 # PY3_VERSION: 3.5.2
