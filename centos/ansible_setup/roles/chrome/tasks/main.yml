@@ -7,6 +7,7 @@
     baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
 
 - name: Add Google Public Key
+  become: yes
   rpm_key:
     state: present
     key: https://dl.google.com/linux/linux_signing_key.pub
