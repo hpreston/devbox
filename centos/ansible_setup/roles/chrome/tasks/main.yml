@@ -1,5 +1,6 @@
 ---
 - name: Add repository
+  become: yes
   yum_repository:
     name: google-chrome
     description: Google Chrome Repo
