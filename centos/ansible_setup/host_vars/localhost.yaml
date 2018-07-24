@@ -1,4 +1,5 @@
 ---
+ansible_python_interpreter: "/usr/bin/env python"
 general:
   user: developer
   # Password is encrypted C1sco12345
