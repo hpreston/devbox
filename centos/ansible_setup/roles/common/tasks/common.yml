@@ -16,6 +16,7 @@
     - curl
     - openssl-devel
     - wget
+    - telnet
 
 - name: install the 'XWindows' environment group
   yum:
