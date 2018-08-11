@@ -18,3 +18,26 @@
     - postman
     - chrome
     - ngrok
+
+- name: Extra configuration steps
+  hosts: localhost
+  become: yes
+
+  tasks:
+    - name: Disable firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: no
+
+    - name: Restart docker
+      service:
+        name: docker
+        state: restarted
+        enabled: yes
+
+    - name: Add user to docker group
+      user:
+        name: "{{ general.user }}"
+        group: docker
+        append: yes
