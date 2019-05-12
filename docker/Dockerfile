@@ -26,6 +26,7 @@ RUN yum -y install python-devel \
     which \
     vim \
     nano \
+    telnet \
   && yum clean all && rm -rf /var/cache/yum
 
 # Install PowerShell Core
@@ -80,6 +81,9 @@ RUN mkdir -p /root/code
 
 # python testing - venv, pip, virlutils, genie
 
+# Explicitly set the UTF local
+RUN echo "export LC_ALL=en_US.utf8" >> /root/.bashrc
 
-# Setup Entry Point
-ENTRYPOINT ["/bin/bash && cd /root/code"]
+# Setup Starting Point
+WORKDIR /root/code
+CMD ["/bin/bash"]
